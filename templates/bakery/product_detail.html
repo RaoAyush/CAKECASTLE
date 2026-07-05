@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - Cake Castle{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="detail-image">
+
+        <div class="detail-info">
+            <h1>{{ product.name }}</h1>
+            <p class="category-tag">{{ product.category.name }}</p>
+            <p class="price">₹{{ product.base_price }}</p>
+            <p>{{ product.description }}</p>
+
+            <a href="#" class="order-btn">Order This</a>
+        </div>
+    </div>
+{% endblock %}

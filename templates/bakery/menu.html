@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Menu - Cake Castle{% endblock %}
+
+{% block content %}
+    <h1>Our Menu</h1>
+
+    <div class="category-filters">
+        <a href="{% url 'menu' %}" class="{% if not selected_category %}active{% endif %}">All</a>
+        {% for category in categories %}
+            <a href="{% url 'menu' %}?category={{ category.slug }}"
+               class="{% if selected_category == category.slug %}active{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+            
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.category.name }}</p>
+                <p>₹{{ product.base_price }}</p>
+        </a>
+        {% empty %}
+            <p>No products found in this category.</p>
+        {% endfor %}
+    </div>
+    
+{% endblock %}
