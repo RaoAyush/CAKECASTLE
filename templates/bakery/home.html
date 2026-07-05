@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cake Castle - Home{% endblock %}
+{% block content %}
+
+<h1>Welcome to cake Castle</h1>
+<p>Freshly baked cakes, made with love.</p>
+
+<h2> Our Products</h2>
+ <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>₹{{ product.base_price }}</p>
+            </div>
+        {% empty %}
+            <p>No products added yet. Check back soon!</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
