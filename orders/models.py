@@ -1,5 +1,5 @@
 from django.db import models
-from bakery.models import Products
+from bakery.models import Product
 
 class Order(models.Model):
     STATUS_CHOICES = [
@@ -22,12 +22,12 @@ class Order(models.Model):
     deliveru_type = models.CharField(max_length=10, choices=DELIVERY_CHOICES,default='pickup')
     address=models.TextField(blank=True)
     
-    needed_by_date = models.DataField()
+    needed_by_date = models.DateField()
     message_on_cake = models.CharField(max_length=100, blank=True)
     special_instruction=models.TextField(blank=True)
     reference_image=models.ImageField(upload_to='order_refs/',blank=True, null=True)
 
-    status= models.CharField(max_length=20, choice=STATUS_CHOICES, default='pending')
+    status= models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     total_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
 
@@ -38,7 +38,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
 
     order=models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product=models.ForeignKey(Products, on_delete=models.SET_NULL, null=True)
+    product=models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity=models.PositiveIntegerField(default=1)
     size=models.CharField(max_length=50, blank=True)
     flavour=models.CharField(max_length=50,blank=True)
